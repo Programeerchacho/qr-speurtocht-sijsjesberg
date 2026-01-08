@@ -3,7 +3,7 @@ function checkAntwoord() {
     let feedback = document.getElementById("feedback");
 
     if (antwoord === "rivier") {
-        feedback.innerHTML = "Goed zo! 🎉"
+        feedback.innerHTML = "Goed zo! 🎉";
     } else {
         feedback.innerHTML = "Dat is niet goed, probeer opnieuw!";
     }

@@ -1,1 +1,21 @@
+<h2>Opdracht 2</h2>
+<p>Hoeveel dagen zitten er in een week?</p>
+
+<input type="number" id="antwoord">
+<button onclick="checkAntwoord2()">Check</button>
+
+<p id="feedback"></p>
+
+<script>
+function checkAntwoord2() {
+    let antwoord = document.getElementById("antwoord").value;
+    let feedback = document.getElementById("feedback");
+
+    if (antwoord == 7) {
+        feedback.innerHTML = "Top! 🎉 <br><a href='einde.html'>Naar de beloning</a>";
+    } else {
+        feedback.innerHTML = "Niet helemaal juist!";
+    }
+}
+</script>
 

@@ -1,0 +1,4 @@
+# SSL certificaten (NOOIT naar GitHub!)
+*.crt
+*.key
+*.pem

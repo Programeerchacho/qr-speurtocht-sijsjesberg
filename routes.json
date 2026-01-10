@@ -1,0 +1,142 @@
+{
+  "appName": "Sijsjesberg Quest",
+  "rules": {
+    "maxHintsForReward": 3,
+    "reward": {
+      "title": "IJsje!",
+      "text": "Yes! Je hebt max 3 hints gebruikt. Je verdient een ijsje 🍦"
+    },
+    "noReward": {
+      "title": "Bijna…",
+      "text": "Jullie hebben meer dan 3 hints gebruikt, dus geen ijsje deze keer. Probeer het nog eens! 🙂"
+    }
+  },
+  "seasons": {
+    "winter": {
+      "label": "Winter",
+      "route": {
+        "title": "Winterroute",
+        "intro": {
+          "text": "Scan bij elk punt de QR. Je mag hints gebruiken, maar >3 hints = geen ijsje aan het eind.",
+          "start": "1"
+        },
+        "points": {
+          "1": {
+            "qr": "WINTER-1",
+            "task": {
+              "type": "mc",
+              "q": "Wat betekent 'sijtje' (Huizer woord)?",
+              "choices": [
+                "Boom",
+                "Meisje",
+                "Vogel",
+                "Rivier"
+              ],
+              "maxAttempts": 3
+            },
+            "answer": {
+              "type": "choice",
+              "value": "Meisje"
+            },
+            "hint": "Het is een persoon.",
+            "next": "2",
+            "nav": {
+              "text": "Loop richting de heuvel en scan QR 2."
+            }
+          },
+          "2": {
+            "qr": "WINTER-2",
+            "task": {
+              "type": "searchCode",
+              "q": "Zoek de steen die op de foto staat. Typ de code die erop staat.",
+              "image": "images/winter/steen-voorbeeld.jpg",
+              "inputLabel": "Code op de steen"
+            },
+            "answer": {
+              "type": "code",
+              "accept": [
+                "A7K2",
+                "a7k2"
+              ]
+            },
+            "hint": "Kijk laag bij de grond, dicht bij het pad.",
+            "next": "3",
+            "nav": {
+              "text": "Ga naar checkpoint 3 en scan QR 3.",
+              "img": "images/winter/2-naar-3.png"
+            }
+          },
+          "3": {
+            "qr": "WINTER-3",
+            "task": {
+              "type": "qrPuzzle",
+              "q": "Vind alle stukjes van de QR-code, plak ze aan elkaar en scan de QR om door te gaan.",
+              "pieces": 6,
+              "puzzleQr": "WINTER-3-PUZZEL"
+            },
+            "answer": {
+              "type": "qrScan",
+              "value": "WINTER-3-PUZZEL"
+            },
+            "hint": "Kijk rond het speelveld / bankjes / paaltjes.",
+            "next": "finish",
+            "nav": {
+              "text": "Loop naar de balie en haal je beloning op!"
+            }
+          }
+        },
+        "finish": {
+          "title": "Einde!",
+          "text": "Nice, jullie hebben de winterroute gehaald.",
+          "rewardLogic": {
+            "hintsUsedMax": 3,
+            "onWinKey": "reward",
+            "onLoseKey": "noReward"
+          }
+        }
+      }
+    },
+    "summer": {
+      "label": "Zomer",
+      "route": {
+        "title": "Zomerroute",
+        "intro": {
+          "text": "Zomerversie: meer natuur- en observatievragen. >3 hints = geen ijsje.",
+          "start": "1"
+        },
+        "points": {
+          "1": {
+            "qr": "SUMMER-1",
+            "task": {
+              "type": "text",
+              "q": "Zoek een blad groter dan je hand. Welke kleur is het vooral?",
+              "inputLabel": "Antwoord"
+            },
+            "answer": {
+              "type": "text",
+              "accept": [
+                "groen",
+                "green"
+              ]
+            },
+            "hint": "In de zomer zijn bladeren vaak…",
+            "next": "finish",
+            "nav": {
+              "text": "Ga naar de finish-QR.",
+              "img": "images/summer/1-naar-finish.jpg"
+            }
+          }
+        },
+        "finish": {
+          "title": "Einde!",
+          "text": "Top, jullie hebben de zomerroute gehaald.",
+          "rewardLogic": {
+            "hintsUsedMax": 3,
+            "onWinKey": "reward",
+            "onLoseKey": "noReward"
+          }
+        }
+      }
+    }
+  }
+}

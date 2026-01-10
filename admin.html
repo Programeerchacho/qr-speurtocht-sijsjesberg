@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#1a1a2e">
+    <title>Admin - Sijsjesberg Quest</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
+</head>
+<body class="admin-body">
+    <!-- Login scherm -->
+    <div id="login-screen" class="admin-login">
+        <div class="login-card">
+            <h1>🔐 Admin Login</h1>
+            <p>Voer het beheerderswachtwoord in</p>
+            <input type="password" id="password-input" class="text-input" placeholder="Wachtwoord">
+            <button id="login-btn" class="btn btn-primary">Inloggen</button>
+            <p id="login-error" class="error-text hidden">Onjuist wachtwoord</p>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard -->
+    <div id="admin-dashboard" class="admin-dashboard hidden">
+        <header class="admin-header">
+            <h1>Sijsjesberg Quest - Admin</h1>
+            <div class="header-actions">
+                <button id="import-btn" class="btn btn-secondary">📁 Import JSON</button>
+                <button id="export-btn" class="btn btn-secondary">💾 Export JSON</button>
+                <button id="logout-btn" class="btn btn-secondary">🚪 Uitloggen</button>
+            </div>
+        </header>
+
+        <div class="admin-content">
+            <!-- Sidebar: Seizoen & Route selectie -->
+            <aside class="admin-sidebar">
+                <h3>Seizoenen</h3>
+                <div id="season-list" class="season-list"></div>
+                <button id="add-season-btn" class="btn btn-small">+ Seizoen toevoegen</button>
+                
+                <h3>Checkpoints</h3>
+                <div id="checkpoint-list" class="checkpoint-list"></div>
+                <button id="add-checkpoint-btn" class="btn btn-small">+ Checkpoint toevoegen</button>
+            </aside>
+
+            <!-- Main: Editor -->
+            <main class="admin-main">
+                <!-- Welkom scherm -->
+                <div id="welcome-panel" class="editor-panel">
+                    <h2>Welkom bij de Admin</h2>
+                    <p>Selecteer een seizoen of checkpoint om te bewerken.</p>
+                    
+                    <div class="quick-actions">
+                        <h3>Snelle acties</h3>
+                        <button id="generate-all-qr-btn" class="btn btn-primary">📱 Genereer alle QR-codes</button>
+                    </div>
+                </div>
+
+                <!-- Seizoen editor -->
+                <div id="season-editor" class="editor-panel hidden">
+                    <h2>Seizoen bewerken</h2>
+                    <div class="form-group">
+                        <label>Seizoen ID</label>
+                        <input type="text" id="season-id" class="text-input" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Label</label>
+                        <input type="text" id="season-label" class="text-input" placeholder="bijv. Winter">
+                    </div>
+                    <div class="form-group">
+                        <label>Route titel</label>
+                        <input type="text" id="season-route-title" class="text-input" placeholder="bijv. Winterroute">
+                    </div>
+                    <div class="form-group">
+                        <label>Intro tekst</label>
+                        <textarea id="season-intro-text" class="text-input" rows="3"></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button id="save-season-btn" class="btn btn-primary">Opslaan</button>
+                        <button id="delete-season-btn" class="btn btn-danger">Verwijderen</button>
+                    </div>
+                </div>
+
+                <!-- Checkpoint editor -->
+                <div id="checkpoint-editor" class="editor-panel hidden">
+                    <h2>Checkpoint bewerken</h2>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Checkpoint ID</label>
+                            <input type="text" id="cp-id" class="text-input" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>QR Code</label>
+                            <input type="text" id="cp-qr" class="text-input" placeholder="bijv. WINTER-1">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Vraagtype</label>
+                        <select id="cp-type" class="text-input">
+                            <option value="mc">Multiple Choice</option>
+                            <option value="text">Tekst invoer</option>
+                            <option value="searchCode">Code zoeken</option>
+                            <option value="qrPuzzle">QR Puzzel</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Vraag</label>
+                        <textarea id="cp-question" class="text-input" rows="2"></textarea>
+                    </div>
+
+                    <!-- Opdracht afbeelding (optioneel, voor alle vraagtypen) -->
+                    <div id="task-image-container" class="form-group">
+                        <label>Opdracht afbeelding (optioneel)</label>
+                        <input type="text" id="cp-task-image" class="text-input" placeholder="bijv. images/winter/steen-voorbeeld.jpg">
+                        <small class="form-hint">Afbeelding die bij de vraag wordt getoond (laat leeg voor geen afbeelding)</small>
+                    </div>
+
+                    <!-- Multiple choice opties -->
+                    <div id="mc-options-container" class="form-group">
+                        <label>Antwoordopties (één per regel)</label>
+                        <textarea id="cp-choices" class="text-input" rows="4" placeholder="Optie 1&#10;Optie 2&#10;Optie 3&#10;Optie 4"></textarea>
+                    </div>
+
+                    <!-- Max pogingen (voor mc) -->
+                    <div id="max-attempts-container" class="form-group">
+                        <label>Max pogingen (0 = onbeperkt)</label>
+                        <input type="number" id="cp-max-attempts" class="text-input" value="3" min="0" max="10">
+                        <small class="form-hint">Voorkom dat spelers alle antwoorden proberen zonder hint te vragen</small>
+                    </div>
+
+                    <!-- QR Puzzel opties -->
+                    <div id="qr-puzzle-container" class="form-group hidden">
+                        <label>Aantal puzzelstukjes</label>
+                        <input type="number" id="cp-pieces" class="text-input" value="6" min="2" max="20">
+                        <label style="margin-top: 12px;">Puzzel QR-code (wordt gescand als oplossing)</label>
+                        <input type="text" id="cp-puzzle-qr" class="text-input" placeholder="bijv. WINTER-3-PUZZEL">
+                        <small class="form-hint">Deze QR-code moet de speler scannen na het in elkaar leggen van de puzzel</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Correct antwoord</label>
+                        <input type="text" id="cp-answer" class="text-input" placeholder="Het juiste antwoord">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Hint</label>
+                        <input type="text" id="cp-hint" class="text-input" placeholder="Een hint voor de spelers">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Navigatie tekst (naar volgende punt)</label>
+                        <input type="text" id="cp-nav-text" class="text-input" placeholder="Loop naar...">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Navigatie afbeelding (bestandspad)</label>
+                        <input type="text" id="cp-nav-image" class="text-input" placeholder="bijv. images/winter/2-naar-3.jpg">
+                        <small class="form-hint">Afbeelding die de weg naar het volgende punt toont</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Volgende checkpoint</label>
+                        <select id="cp-next" class="text-input"></select>
+                    </div>
+
+                    <div class="form-actions">
+                        <button id="save-checkpoint-btn" class="btn btn-primary">Opslaan</button>
+                        <button id="delete-checkpoint-btn" class="btn btn-danger">Verwijderen</button>
+                    </div>
+
+                    <!-- QR Code preview -->
+                    <div class="qr-preview-section">
+                        <h3>QR Codes</h3>
+                        <div class="qr-preview-grid">
+                            <div class="qr-preview-item">
+                                <p><strong>Checkpoint QR</strong></p>
+                                <div id="qr-preview"></div>
+                                <button id="download-qr-btn" class="btn btn-secondary btn-small">📥 Download</button>
+                            </div>
+                            <div id="puzzle-qr-preview-item" class="qr-preview-item hidden">
+                                <p><strong>Puzzel QR (antwoord)</strong></p>
+                                <div id="puzzle-qr-preview"></div>
+                                <button id="download-puzzle-qr-btn" class="btn btn-secondary btn-small">📥 Download</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- QR Generator panel -->
+                <div id="qr-generator-panel" class="editor-panel hidden">
+                    <h2>QR Codes Genereren</h2>
+                    <p>Download alle QR-codes voor de huidige route.</p>
+                    
+                    <div id="qr-grid" class="qr-grid"></div>
+                    
+                    <div class="form-actions">
+                        <button id="download-all-qr-btn" class="btn btn-primary">📥 Download alle QR-codes</button>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Hidden file input voor import -->
+    <input type="file" id="import-file-input" accept=".json" style="display: none;">
+
+    <script src="admin.js"></script>
+</body>
+</html>

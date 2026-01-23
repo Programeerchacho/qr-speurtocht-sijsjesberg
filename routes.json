@@ -1,0 +1,399 @@
+{
+  "appName": "Sijsjesberg Quest",
+  "rules": {
+    "maxHintsForReward": 3,
+    "reward": {
+      "title": "IJsje!",
+      "text": "Yes! Je hebt max 3 hints gebruikt. Je verdient een ijsje 🍦"
+    },
+    "noReward": {
+      "title": "Bijna…",
+      "text": "Jullie hebben meer dan 3 hints gebruikt, dus geen ijsje deze keer. Probeer het nog eens! 🙂"
+    }
+  },
+  "seasons": {
+    "winter": {
+      "label": "Winter",
+      "route": {
+        "title": "Winterroute",
+        "intro": {
+          "text": "Scan bij elk punt de QR. Je mag hints gebruiken, maar >3 hints = geen ijsje aan het eind.",
+          "start": "1"
+        },
+        "points": {
+          "1": {
+            "qr": "WINTER-1",
+            "task": {
+              "type": "mc",
+              "q": "Wat betekent 'sijtje' (Huizer woord)?",
+              "choices": [
+                "Boom",
+                "Meisje",
+                "Vogel",
+                "Rivier"
+              ],
+              "maxAttempts": 2
+            },
+            "answer": {
+              "type": "choice",
+              "value": "Meisje"
+            },
+            "hint": "Het is een persoon.",
+            "next": "2",
+            "nav": {
+              "text": "Loop richting de heuvel en scan QR 2."
+            }
+          },
+          "2": {
+            "qr": "WINTER-2",
+            "task": {
+              "type": "searchCode",
+              "q": "Zoek de steen die op de foto staat. Typ de code die erop staat.",
+              "image": "images/winter/steen-voorbeeld.jpg",
+              "inputLabel": "Code op de steen"
+            },
+            "answer": {
+              "type": "code",
+              "accept": [
+                "A7K2",
+                "a7k2"
+              ]
+            },
+            "hint": "Kijk laag bij de grond, dicht bij het pad.",
+            "next": "3",
+            "nav": {
+              "text": "Ga naar checkpoint 3 en scan QR 3.",
+              "img": "images/winter/2-naar-3.png"
+            }
+          },
+          "3": {
+            "qr": "WINTER-3",
+            "task": {
+              "type": "qrPuzzle",
+              "q": "Vind alle stukjes van de QR-code, plak ze aan elkaar en scan de QR om door te gaan.",
+              "pieces": 6,
+              "puzzleQr": "WINTER-3-PUZZEL"
+            },
+            "answer": {
+              "type": "qrScan",
+              "value": "WINTER-3-PUZZEL"
+            },
+            "hint": "Kijk rond het speelveld / bankjes / paaltjes.",
+            "next": "4",
+            "nav": {
+              "text": "Raar, wie heeft deze qr-codes opgehangen.. Op de grond zien jullie voetstappen. Ze lijken van een kind te zijn… Zou dit het vermiste meisje van het nieuws zijn? Volg de voetstappen naar de volgende qr-code."
+            }
+          },
+          "4": {
+            "qr": "WINTER-4",
+            "task": {
+              "type": "mc",
+              "q": "Wat gebruik je in de winter warm te blijven?",
+              "choices": [
+                "Een jas",
+                "Je handen",
+                "Een boek",
+                "Eten"
+              ],
+              "maxAttempts": 2
+            },
+            "answer": {
+              "type": "choice",
+              "value": "Een jas"
+            },
+            "hint": "Kijk boven je",
+            "next": "5",
+            "nav": {
+              "text": "Ja! Goed gedaan, het meisje gebruikt haar jas om warm te blijven... Het lijkt wel alsof de jas ergens naartoe wijst! "
+            }
+          },
+          "5": {
+            "qr": "WINTER-5",
+            "task": {
+              "type": "text",
+              "q": "Je ziet lichtflitsen, 3 korte, 3 lange en ten slotte weer 3 korte. Wat betekent dit? "
+            },
+            "answer": {
+              "type": "text",
+              "accept": [
+                "SOS",
+                "save our ship",
+                "sos"
+              ]
+            },
+            "hint": "Morse code.",
+            "next": "6",
+            "nav": {
+              "text": "Goed gedaan, alleen ¨sos¨? Dat is niet goed! Snel naar de volgende qr-code, die kan je hier vinden:"
+            }
+          },
+          "6": {
+            "qr": "WINTER-6",
+            "task": {
+              "type": "mc",
+              "q": "Kijk onder je, je staat op een stuk haar van het vermiste meisje. In haar zit DNA, uit welke 4 basen bestaat DNA?",
+              "choices": [
+                "A T C G",
+                "A B C D",
+                "1 2 3 4",
+                "P V V C"
+              ],
+              "maxAttempts": 2
+            },
+            "answer": {
+              "type": "choice",
+              "value": "A T C G"
+            },
+            "hint": "A .. T .. G",
+            "next": "7",
+            "nav": {
+              "text": "Goed! Deze was moeilijk! De volgende qr-code is hier te vinden:"
+            }
+          },
+          "7": {
+            "qr": "WINTER-7",
+            "task": {
+              "type": "text",
+              "q": "Waar wordt je duizelig van?\n\n"
+            },
+            "answer": {
+              "type": "text",
+              "accept": [
+                "Draaien",
+                "draaien"
+              ]
+            },
+            "hint": "You ... me right round baby right round!",
+            "next": "8",
+            "nav": {
+              "text": "Helemaal goed draai de qr-code om de volgende qr-code te vinden! (of bekijk foto)",
+              "img": "Screenshot 2026-01-23 1.43.39 PM.png"
+            }
+          },
+          "8": {
+            "qr": "WINTER-8",
+            "task": {
+              "type": "mc",
+              "q": "Hier is het meisje van de duikplank het water in gesprongen, ze vond het eng, maar werd gedwongen door haar vriendinnen. Voor het springen heeft ze dit in de duikplank gekerfd: ⠓⠑⠇⠏ ",
+              "image": "braille_alfabet.jpg",
+              "choices": [
+                "Hallo",
+                "Help",
+                "Doei",
+                "Ik moet dit doen "
+              ],
+              "maxAttempts": 2
+            },
+            "answer": {
+              "type": "choice",
+              "value": "Help"
+            },
+            "hint": "Ze doet dit tegen haar zin.",
+            "next": "9",
+            "nav": {
+              "text": "Oh nee! Ze is hiervan af gesprongen dat is niet goed! Snel naar de volgende qr:"
+            }
+          },
+          "9": {
+            "qr": "WINTER-9",
+            "task": {
+              "type": "mc",
+              "q": "Je ziet allemaal mieren naar de brede glijbaan lopen, wat betekent dit?",
+              "choices": [
+                "Daar is voedsel",
+                "Daar zijn mensen",
+                "Er is een Pokemon los",
+                "Ze zijn ook het opzoek naar het meisje"
+              ],
+              "maxAttempts": 2
+            },
+            "answer": {
+              "type": "choice",
+              "value": "Daar is voedsel "
+            },
+            "hint": "Ander woord voor eten",
+            "next": "10",
+            "nav": {
+              "text": "Volg de mieren! De volgende qr-code is bij de glijbaan."
+            }
+          },
+          "10": {
+            "qr": "WINTER-10",
+            "task": {
+              "type": "mc",
+              "q": "Bij de glijbaan zie je voetstappen, klein, groot, klein, groot, klein. Wat betekent dit?\n",
+              "choices": [
+                "Ze heeft 2 verschillende schoenen aan.",
+                "Ze is aan het lopen op haar handen.",
+                "Ze is niet alleen",
+                "ze is gevallen"
+              ],
+              "maxAttempts": 2
+            },
+            "answer": {
+              "type": "choice",
+              "value": "Ze is niet alleen"
+            },
+            "hint": "Denk logisch na.",
+            "next": "11",
+            "nav": {
+              "text": "Oh nee dit is niet goed.. Met wie is ze? Snel we moeten haar redden we komen dichtbij! Hier is de volgende qr-code:"
+            }
+          },
+          "11": {
+            "qr": "WINTER-11",
+            "task": {
+              "type": "mc",
+              "q": "Wat is de meest voorkomende levendwezen rond de sijsjesberg.",
+              "choices": [
+                "Vogel",
+                "Mens",
+                "Mier",
+                "Hond"
+              ],
+              "maxAttempts": 2
+            },
+            "answer": {
+              "type": "choice",
+              "value": "Mier"
+            },
+            "hint": "Klein",
+            "next": "12",
+            "nav": {
+              "text": "De volgende qr is:"
+            }
+          },
+          "12": {
+            "qr": "WINTER-12",
+            "task": {
+              "type": "searchCode",
+              "q": "Vind de code rond de QR",
+              "inputLabel": "Code"
+            },
+            "answer": {
+              "type": "code",
+              "value": "Groene natuur"
+            },
+            "hint": "Onder het bankje.",
+            "next": "13",
+            "nav": {
+              "text": "De volgende qr is:"
+            }
+          },
+          "13": {
+            "qr": "WINTER-13",
+            "task": {
+              "type": "text",
+              "q": "Wat is er meer in nederland fietsen of mensen? "
+            },
+            "answer": {
+              "type": "text",
+              "accept": [
+                "Fietsen",
+                "fietsen"
+              ]
+            },
+            "hint": "Het rijdt",
+            "next": "14",
+            "nav": {
+              "text": "De volgende qr is:"
+            }
+          },
+          "14": {
+            "qr": "WINTER-14",
+            "task": {
+              "type": "text",
+              "q": "Hoe heet de vos in Dora?"
+            },
+            "answer": {
+              "type": "text",
+              "accept": [
+                "Zwieber",
+                "zwieber"
+              ]
+            },
+            "hint": "... niet stelen!",
+            "next": "15",
+            "nav": {
+              "text": "De volgende qr is:"
+            }
+          },
+          "15": {
+            "qr": "WINTER-15",
+            "task": {
+              "type": "mc",
+              "q": "Wat is de meest voorkomende boom?",
+              "choices": [
+                "Boom",
+                "Kerst",
+                "Eik",
+                "Naald"
+              ],
+              "maxAttempts": 2
+            },
+            "answer": {
+              "type": "choice",
+              "value": "Naald"
+            },
+            "hint": "Het prikt",
+            "next": "finish",
+            "nav": {
+              "text": "De volgende qr is:"
+            }
+          }
+        },
+        "finish": {
+          "title": "Einde!",
+          "text": "Nice, jullie hebben de winterroute gehaald.",
+          "rewardLogic": {
+            "hintsUsedMax": 3,
+            "onWinKey": "reward",
+            "onLoseKey": "noReward"
+          }
+        }
+      }
+    },
+    "summer": {
+      "label": "Zomer",
+      "route": {
+        "title": "Zomerroute",
+        "intro": {
+          "text": "Zomerversie: meer natuur- en observatievragen. >3 hints = geen ijsje.",
+          "start": "1"
+        },
+        "points": {
+          "1": {
+            "qr": "SUMMER-1",
+            "task": {
+              "type": "text",
+              "q": "Zoek een blad groter dan je hand. Welke kleur is het vooral?",
+              "inputLabel": "Antwoord"
+            },
+            "answer": {
+              "type": "text",
+              "accept": [
+                "groen",
+                "green"
+              ]
+            },
+            "hint": "In de zomer zijn bladeren vaak…",
+            "next": "finish",
+            "nav": {
+              "text": "Ga naar de finish-QR.",
+              "img": "images/summer/1-naar-finish.jpg"
+            }
+          }
+        },
+        "finish": {
+          "title": "Einde!",
+          "text": "Top, jullie hebben de zomerroute gehaald.",
+          "rewardLogic": {
+            "hintsUsedMax": 3,
+            "onWinKey": "reward",
+            "onLoseKey": "noReward"
+          }
+        }
+      }
+    }
+  }
+}

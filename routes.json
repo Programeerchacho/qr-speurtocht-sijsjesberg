@@ -209,7 +209,7 @@
             },
             "answer": {
               "type": "choice",
-              "value": "Daar is voedsel "
+              "value": "Daar is voedsel"
             },
             "hint": "Ander woord voor eten",
             "next": "10",
